@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Braithwaite - Coming Soon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baskervville&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #EEE8CE;
+            color: #17184F;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .logo {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-family: 'Baskervville', Georgia, serif;
+            font-size: 40px;
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 1.25;
+            letter-spacing: -0.02em;
+            color: #17184F;
+            text-decoration: none;
+            padding: 4px 12px;
+            border: 1px solid #17184F;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #17184F;
+            color: #EEE8CE;
+            transform: translateY(-2px);
+        }
+
+        .cta-button:active {
+            transform: translateY(0);
+        }
+
+        .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover .arrow {
+            transform: translateX(4px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .logo {
+                max-width: 400px;
+                margin-bottom: 2rem;
+            }
+
+            h1 {
+                font-size: 32px;
+                margin-bottom: 2rem;
+            }
+
+            .cta-button {
+                font-size: 18px;
+                padding: 4px 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                max-width: 300px;
+                margin-bottom: 1.5rem;
+            }
+
+            h1 {
+                font-size: 28px;
+                margin-bottom: 1.5rem;
+            }
+
+            .cta-button {
+                font-size: 16px;
+                padding: 4px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="Braithwaite_logo.svg" alt="Braithwaite" class="logo">
+        
+        <h1>Coming soon.</h1>
+        
+        <a href="mailto:hunter@braithwaite.llc" class="cta-button">
+            Get in touch
+            <span class="arrow">→</span>
+        </a>
+    </div>
+</body>
+</html>
