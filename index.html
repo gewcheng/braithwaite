@@ -11,28 +11,47 @@
 </head>
 <body>
   <div class="page-wrapper">
-    <!-- Sticky header -->
+    <!-- Sticky header: progressive blur (strongest at top) + gradient tint -->
     <header class="site-header">
+      <div class="header-blur" aria-hidden="true">
+        <div class="blur-filter"></div>
+        <div class="blur-filter"></div>
+        <div class="blur-filter"></div>
+        <div class="blur-filter"></div>
+        <div class="blur-filter"></div>
+        <div class="blur-filter"></div>
+        <div class="blur-filter"></div>
+        <div class="blur-gradient"></div>
+      </div>
       <a href="#" class="header-logo" aria-label="Braithwaite home">
         <img src="assets/Braithwaite-logo-navy.svg" alt="Braithwaite">
       </a>
     </header>
 
     <main class="main-grid">
-      <!-- Column 1: Sticky nav with scroll-spy dot -->
       <aside class="sticky-nav" aria-label="Page sections">
+        <div class="nav-blur" aria-hidden="true">
+          <div class="blur-filter"></div>
+          <div class="blur-filter"></div>
+          <div class="blur-filter"></div>
+          <div class="blur-filter"></div>
+          <div class="blur-filter"></div>
+          <div class="blur-filter"></div>
+          <div class="blur-filter"></div>
+          <div class="blur-gradient"></div>
+        </div>
         <nav class="main-nav">
-          <a href="#why" class="nav-item active" data-section="why">
+          <a href="#about" class="nav-item active" data-section="about">
             <span class="nav-dot-wrap"><img src="assets/menu-dot.svg" alt="" aria-hidden="true"></span>
-            <span class="nav-label">Why we exist</span>
+            <span class="nav-label">About</span>
           </a>
           <a href="#services" class="nav-item" data-section="services">
             <span class="nav-dot-wrap"><img src="assets/menu-dot.svg" alt="" aria-hidden="true"></span>
             <span class="nav-label">Services</span>
           </a>
-          <a href="#about" class="nav-item" data-section="about">
+          <a href="#experience" class="nav-item" data-section="experience">
             <span class="nav-dot-wrap"><img src="assets/menu-dot.svg" alt="" aria-hidden="true"></span>
-            <span class="nav-label">About</span>
+            <span class="nav-label">Experience</span>
           </a>
           <a href="#connect" class="nav-item" data-section="connect">
             <span class="nav-dot-wrap"><img src="assets/menu-dot.svg" alt="" aria-hidden="true"></span>
@@ -41,14 +60,13 @@
         </nav>
       </aside>
 
-      <!-- Columns 2–5: Content -->
       <div class="main-content">
-        <section id="why" class="section hero" data-section="why">
-          <h1 class="hero-headline">Cultural institutions navigate a world where credibility and visibility determine impact. The challenge isn’t awareness. It’s strategic fluency to connect institutional value to the people who matter.</h1>
+        <section id="about" class="section hero" data-section="about">
+          <h1 class="hero-headline">Cultural institutions know that credibility and visibility determine impact. We help create both.</h1>
           <div class="hero-copy body-copy">
             <p>Our approach is grounded in fifteen years of editorial and consulting experience spanning arts organizations, foundations, and public institutions. We help clients articulate their value, build visibility, and deepen impact.</p>
             <p>We focus on mission-level alignment, long-term relationship cultivation, and narrative clarity—so that institutional story and strategy work in tandem.</p>
-            <p>We offer strategic collaboration without agency overhead.</p>
+            <p>We offer strategic collaboration without agency overhead.<br><br></p>
           </div>
         </section>
 
@@ -71,16 +89,16 @@
 
         <hr class="section-rule" aria-hidden="true">
 
-        <section id="about" class="section about" data-section="about">
-          <div class="about-photo">
+        <section id="experience" class="section experience" data-section="experience">
+          <div class="experience-photo">
             <img src="assets/hunter-braithwaite.png" alt="Hunter Braithwaite">
           </div>
-          <div class="about-content">
+          <div class="experience-content">
             <p class="body-copy">Hunter Braithwaite advises cultural institutions, foundations, and individual practitioners. He holds an MFA from New York University.</p>
             <p class="body-copy">Hunter serves on the Board of Directors of Storefront for Art and Architecture and is a member of Professional Advisors to the International Art Market.</p>
-            <div class="about-columns">
-              <div class="about-col">
-                <h3 class="about-col-title">Select clients</h3>
+            <div class="experience-columns">
+              <div class="experience-col">
+                <h3 class="experience-col-title">Select clients</h3>
                 <ul>
                   <li><a href="https://www.fordfoundation.org" target="_blank" rel="noopener">Ford Foundation</a></li>
                   <li><a href="https://www.mellon.org" target="_blank" rel="noopener">Mellon Foundation</a></li>
@@ -91,8 +109,8 @@
                   <li>+ Municipal and cultural departments in Boston, Miami Beach, and Pittsburgh.</li>
                 </ul>
               </div>
-              <div class="about-col">
-                <h3 class="about-col-title">Select writing</h3>
+              <div class="experience-col">
+                <h3 class="experience-col-title">Select writing</h3>
                 <ul>
                   <li><a href="#" target="_blank" rel="noopener">Artforum</a></li>
                   <li><a href="#" target="_blank" rel="noopener">Art in America</a></li>
@@ -104,47 +122,68 @@
           </div>
         </section>
 
-        <hr class="section-rule" aria-hidden="true">
-
-        <section id="connect" class="section contact" data-section="connect">
-          <h2 class="contact-title">For prospective clients</h2>
-          <form class="contact-form" id="contact-form" action="" method="POST">
-            <label for="fullname" class="visually-hidden">Full name (required)</label>
-            <input type="text" id="fullname" name="fullname" placeholder="Full name *" required>
-
-            <label for="email" class="visually-hidden">Email address (required)</label>
-            <input type="email" id="email" name="email" placeholder="Email address *" required>
-
-            <label for="affiliation" class="visually-hidden">Affiliation</label>
-            <input type="text" id="affiliation" name="affiliation" placeholder="Affiliation">
-
-            <label for="location" class="visually-hidden">Location</label>
-            <input type="text" id="location" name="location" placeholder="Location">
-
-            <button type="submit" class="submit-btn">Submit →</button>
-          </form>
-        </section>
       </div>
     </main>
   </div>
 
-  <footer class="site-footer">
-    <div class="footer-bg-logo" aria-hidden="true">
-      <img src="assets/Braithwaite-logo-footer.svg" alt="">
-    </div>
+  <footer class="site-footer" id="connect">
     <div class="footer-inner">
-      <div class="footer-left">
-        <span class="footer-tagline">Cultural relations</span>
-        <p class="footer-copy">© Braithwaite LLC 2026</p>
-      </div>
-      <a href="#" class="footer-link footer-link-linkedin" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="#" class="footer-link footer-link-substack" target="_blank" rel="noopener">Substack</a>
-      <div class="footer-cta">
-        <form class="footer-mailing-form" id="footer-mailing-form" action="" method="POST" aria-label="Mailing list signup">
-          <label for="footer-email" class="visually-hidden">Email for mailing list</label>
-          <input type="email" id="footer-email" name="email" placeholder="Sign up for our mailing list" required>
-          <button type="submit" class="footer-mailing-submit" aria-label="Submit"><img src="assets/Arrow forward cream.svg" alt="" width="12" height="12"></button>
+      <!-- Connect section: seal + hairline, Inquiries, Join the Mailing List -->
+      <div class="connect-block" data-section="connect">
+        <div class="connect-header">
+          <div class="connect-seal-wrap">
+            <span class="connect-seal" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M33.0713 17.333C39.5668 17.3332 44.4087 20.3998 44.4092 24.4336C44.4092 27.9038 41.2217 30.4852 35.9766 31.252V31.6963C41.7054 32.543 45.4569 35.3683 45.498 39.2012C45.539 44.0019 40.2523 47.1892 32.7891 47.1895H18.667L21.7744 44.7686V19.7539L18.667 17.333H33.0713ZM26.8174 46.3408H32.5469C37.6712 46.3406 40.1729 42.7495 40.1729 39.1191C40.1726 35.489 37.671 31.9368 32.5879 31.9365H26.8174V46.3408ZM26.8193 31.1309H32.8301C36.5829 31.1305 39.2051 28.3875 39.2051 24.4336C39.2048 20.7219 36.6217 18.18 32.75 18.1797H26.8193V31.1309Z" fill="#EEE8CE"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M32 4C47.464 4 60 16.536 60 32C60 47.464 47.464 60 32 60C16.536 60 4 47.464 4 32C4 16.536 16.536 4 32 4ZM32 4.6748C16.9087 4.6748 4.6748 16.9087 4.6748 32C4.6748 47.0913 16.9087 59.3252 32 59.3252C47.0913 59.3252 59.3252 47.0913 59.3252 32C59.3252 16.9087 47.0913 4.6748 32 4.6748Z" fill="#EEE8CE"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M32 0C49.6731 0 64 14.3269 64 32C64 49.6731 49.6731 64 32 64C14.3269 64 0 49.6731 0 32C0 14.3269 14.3269 0 32 0ZM32 1.36133C15.0789 1.36133 1.36133 15.0789 1.36133 32C1.36133 48.9211 15.0789 62.6387 32 62.6387C48.9211 62.6387 62.6387 48.9211 62.6387 32C62.6387 15.0789 48.9211 1.36133 32 1.36133Z" fill="#EEE8CE"/>
+              </svg>
+            </span>
+            <span class="connect-hairline" aria-hidden="true"></span>
+          </div>
+          <h2 class="connect-inquiries-head">INQUIRIES</h2>
+        </div>
+        <a href="mailto:hello@braithwaite.llc" class="connect-email-link">
+          hello@braithwaite.llc
+          <span class="connect-arrow" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
+              <path d="M18.6666 17.3332L17.1228 15.8165L23.1895 9.74991H0V7.58326H23.1895L17.1228 1.51665L18.6666 0L27.3332 8.66658L18.6666 17.3332Z" fill="#EEE8CE"/>
+            </svg>
+          </span>
+        </a>
+        <h2 class="connect-newsletter-head">JOIN THE MAILING LIST</h2>
+        <form class="connect-newsletter-form" id="newsletter-form" action="" method="POST" aria-label="Join the mailing list">
+          <label for="newsletter-fullname" class="visually-hidden">Full name (required)</label>
+          <input type="text" id="newsletter-fullname" name="fullname" placeholder="Full name *" required>
+          <label for="newsletter-email" class="visually-hidden">Email address (required)</label>
+          <input type="email" id="newsletter-email" name="email" placeholder="Email address *" required>
+          <label for="newsletter-affiliation" class="visually-hidden">Affiliation</label>
+          <input type="text" id="newsletter-affiliation" name="affiliation" placeholder="Affiliation">
+          <label for="newsletter-location" class="visually-hidden">Location</label>
+          <input type="text" id="newsletter-location" name="location" placeholder="Location">
+          <button type="submit" class="connect-submit-btn">
+            Submit
+            <img src="assets/Arrow forward cream.svg" alt="" class="connect-submit-arrow" width="12" height="12">
+          </button>
         </form>
+      </div>
+
+      <div class="footer-row">
+        <span class="footer-tagline">Cultural relations</span>
+        <div class="footer-row-right">
+          <nav class="footer-links" aria-label="Social links">
+            <a href="#" class="footer-link" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="#" class="footer-link" target="_blank" rel="noopener">Substack</a>
+            <a href="#" class="footer-link" target="_blank" rel="noopener">Instagram</a>
+          </nav>
+          <p class="footer-copy">© Braithwaite LLC 2026</p>
+        </div>
+      </div>
+
+      <hr class="connect-footer-rule" aria-hidden="true">
+
+      <div class="footer-bg-logo" aria-hidden="true">
+        <img src="assets/Braithwaite-logo-footer.svg" alt="">
       </div>
     </div>
   </footer>
