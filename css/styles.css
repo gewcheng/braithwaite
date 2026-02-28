@@ -651,6 +651,44 @@ p.body-copy:last-child {
   height: 12px;
 }
 
+.connect-newsletter {
+  grid-column: 2;
+}
+
+.connect-thank-you {
+  grid-column: 2;
+  margin-top: 64px;
+}
+
+.connect-thank-you-heading {
+  margin: 0 0 1rem;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-cream);
+  line-height: 1.5;
+}
+
+.connect-thank-you .body-copy {
+  margin: 0;
+  color: var(--color-cream);
+  font-size: 20px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+
+.connect-thank-you-link {
+  color: var(--color-cream);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.connect-thank-you-link:hover {
+  opacity: 0.8;
+}
+
 /* Hairline: same width as content (does not extend beyond left/right alignment) */
 .connect-footer-rule {
   grid-column: 1 / -1;
@@ -902,6 +940,8 @@ p.body-copy:last-child {
 
   .connect-inquiries-head,
   .connect-email-link,
+  .connect-newsletter,
+  .connect-thank-you,
   .connect-newsletter-head,
   .connect-newsletter-form {
     grid-column: 1;
