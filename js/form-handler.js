@@ -1,26 +1,42 @@
 /**
- * Contact form: submits to Google Sheets via a Google Apps Script web app URL.
- * Set your URL in the form's action in index.html, or replace SCRIPT_URL below.
+ * Newsletter (mailing list) form: submits to Google Sheets via a Google Apps Script web app URL.
+ * On success, hides the form and shows an in-place thank-you message.
  */
 
 (function () {
-  var form = document.getElementById('contact-form');
-  if (!form) return;
+  var form = document.getElementById('newsletter-form');
+  var newsletterBlock = document.getElementById('connect-newsletter');
+  var thankYouBlock = document.getElementById('connect-thank-you');
+  if (!form || !newsletterBlock || !thankYouBlock) return;
+
+  function showThankYou() {
+    newsletterBlock.hidden = true;
+    thankYouBlock.hidden = false;
+    if (location.hash !== '#thank-you') {
+      location.hash = 'thank-you';
+    }
+    thankYouBlock.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  if (location.hash === '#thank-you') {
+    newsletterBlock.hidden = true;
+    thankYouBlock.hidden = false;
+  }
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    var btn = form.querySelector('.submit-btn');
-    var originalText = btn.textContent;
+    var btn = form.querySelector('.connect-submit-btn');
+    var originalHtml = btn.innerHTML;
     btn.disabled = true;
-    btn.textContent = 'Sending…';
+    btn.innerHTML = 'Sending…';
 
     var action = form.getAttribute('action');
 
     if (!action) {
       alert('Form is not configured. Add your Google Apps Script web app URL to the form action in index.html. See README for steps.');
       btn.disabled = false;
-      btn.textContent = originalText;
+      btn.innerHTML = originalHtml;
       return;
     }
 
@@ -37,17 +53,15 @@
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     })
       .then(function () {
-        btn.textContent = 'Sent';
         form.reset();
-        setTimeout(function () {
-          btn.disabled = false;
-          btn.textContent = originalText;
-        }, 2000);
+        showThankYou();
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
       })
       .catch(function () {
         alert('Something went wrong. Please try again or email us directly.');
         btn.disabled = false;
-        btn.textContent = originalText;
+        btn.innerHTML = originalHtml;
       });
   });
 })();

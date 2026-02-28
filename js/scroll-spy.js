@@ -3,7 +3,7 @@
  * which section is in view. Sections are separated by horizontal hairlines (hr.section-rule).
  */
 (function () {
-  var sectionIds = ['why', 'services', 'about', 'connect'];
+  var sectionIds = ['about', 'services', 'experience', 'connect'];
   var navItems = document.querySelectorAll('.nav-item[data-section]');
   var sections = sectionIds.map(function (id) {
     return document.getElementById(id);
@@ -12,8 +12,9 @@
   if (!navItems.length || !sections.length) return;
 
   var activeClass = 'active';
-  // Match scroll-margin: section is "active" when its top reaches the nav line (header + 1rem)
-  var offset = 166; // header 150px + 1rem
+  // Must match scroll-margin-top in CSS so that when we've scrolled to a section it's considered active.
+  // CSS uses calc(150 + 1rem + 1.5rem) = 190 for services/experience/connect; #about uses 166.
+  var offset = 190;
   var ignoreScrollUntil = 0; // after a nav click, ignore scroll updates for a short time
 
   function setActive(sectionId) {
