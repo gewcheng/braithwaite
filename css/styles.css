@@ -365,7 +365,29 @@ p.body-copy:last-child {
 .experience-columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 0rem;
+  align-items: stretch;
+}
+
+/* "Select clients" spans full width above both columns */
+.experience-columns > .experience-col-title {
+  grid-column: 1 / -1;
+}
+
+.experience-col-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.experience-footnote {
+  margin: 0;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  color: var(--color-navy);
 }
 
 .experience-col-title {
