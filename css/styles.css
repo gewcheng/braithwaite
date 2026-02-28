@@ -141,7 +141,7 @@ body {
 }
 
 .header-logo img {
-  height: 32px;
+  height: 40px;
   width: auto;
   display: block;
 }
@@ -382,11 +382,11 @@ p.body-copy:last-child {
 .experience-footnote {
   margin: 0;
   margin-top: auto;
-  padding-top: 0.5rem;
+  padding-top: 0;
   font-family: var(--font-serif);
   font-size: 14px;
   line-height: 1.5;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   color: var(--color-navy);
 }
 
@@ -414,14 +414,51 @@ p.body-copy:last-child {
   margin-bottom: 0.25rem;
 }
 
+@keyframes link-underline-reveal {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  40% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  60% {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+}
+
 .experience-col a {
+  position: relative;
   color: var(--color-navy);
-  text-decoration: underline;
-  transition: color 0.3s ease;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 45%, transparent);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.experience-col a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
 }
 
 .experience-col a:hover {
-  text-decoration: none;
+  border-bottom-color: transparent;
+}
+
+.experience-col a:hover::after {
+  animation: link-underline-reveal 0.55s ease-out forwards;
 }
 
 /* Visually hidden, still available to screen readers */
@@ -444,7 +481,7 @@ p.body-copy:last-child {
   min-height: 500px;
   background: var(--color-dark);
   color: var(--color-cream);
-  padding: 3rem 0 2rem;
+  padding: 3rem 0 0;
   margin-top: 0rem;
   overflow: hidden;
   scroll-margin-top: calc(var(--header-height) + 1rem + 1.5rem);
@@ -545,7 +582,10 @@ p.body-copy:last-child {
 }
 
 .connect-email-link {
+  position: relative;
   grid-column: 2;
+  align-self: start;
+  width: fit-content;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -558,13 +598,30 @@ p.body-copy:last-child {
   letter-spacing: -1.2px;
   text-decoration: none;
   margin: 0.5rem 0 0;
-  transition: color 0.3s ease, opacity 0.3s ease;
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s ease, opacity 0.3s ease, border-color 0.3s ease;
+}
+
+.connect-email-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
 }
 
 .connect-email-link:hover {
   color: var(--color-cream);
   text-decoration: none;
   opacity: 0.5;
+}
+
+.connect-email-link:hover::after {
+  animation: link-underline-reveal 0.55s ease-out forwards;
 }
 
 .connect-email-link .connect-arrow {
@@ -680,13 +737,31 @@ p.body-copy:last-child {
 }
 
 .connect-thank-you-link {
+  position: relative;
   color: var(--color-cream);
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 45%, transparent);
+}
+
+.connect-thank-you-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
 }
 
 .connect-thank-you-link:hover {
   opacity: 0.8;
+  border-bottom-color: transparent;
+}
+
+.connect-thank-you-link:hover::after {
+  animation: link-underline-reveal 0.55s ease-out forwards;
 }
 
 /* Hairline: same width as content (does not extend beyond left/right alignment) */
@@ -734,6 +809,7 @@ p.body-copy:last-child {
 }
 
 .footer-link {
+  position: relative;
   color: var(--color-cream);
   font-family: var(--font-serif);
   font-size: 16px;
@@ -741,14 +817,30 @@ p.body-copy:last-child {
   font-weight: 400;
   line-height: 150%;
   letter-spacing: -0.32px;
-  text-decoration: underline;
-  text-decoration-style: solid;
-  text-decoration-skip-ink: auto;
-  transition: color 0.3s ease, opacity 0.3s ease;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s ease, opacity 0.3s ease, border-color 0.3s ease;
+}
+
+.footer-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
 }
 
 .footer-link:hover {
-  text-decoration: none;
+  opacity: 0.5;
+  border-bottom-color: transparent;
+}
+
+.footer-link:hover::after {
+  animation: link-underline-reveal 0.55s ease-out forwards;
 }
 
 .footer-copy {
@@ -766,14 +858,20 @@ p.body-copy:last-child {
 @media (max-width: 900px) {
   /* Mobile header: 80px, 32px padding, logo centered vertically, no blur/gradient */
   .site-header {
-    height: 80px;
-    padding: 0 32px;
+    height: 64px;
+    padding: 0 24px;
     align-items: center;
     background: var(--color-cream);
   }
 
   .site-header .header-blur {
     display: none;
+  }
+
+  .header-logo img {
+    height: 32px;
+    width: auto;
+    display: block;
   }
 
   /* Mobile sticky nav: sticky below header, 32px sides, 0 top, 32px bottom, gradient + progressive blur */
@@ -784,8 +882,8 @@ p.body-copy:last-child {
   .sticky-nav {
     grid-column: 1;
     position: sticky;
-    top: 80px;
-    padding: 12px 20px 32px;
+    top: 64px;
+    padding: 16px 12px 32px;
     z-index: 99;
   }
 
@@ -873,13 +971,14 @@ p.body-copy:last-child {
   }
 
   .nav-item {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   /* Hero and body typography */
   .hero-headline {
     font-size: 32px;
     line-height: 1.2;
+    margin: 0 0 0;
   }
 
   .hero-copy p,
@@ -895,6 +994,7 @@ p.body-copy:last-child {
   .main-content {
     grid-column: 1;
     grid-template-columns: 1fr;
+    padding: 0 24px 3rem
   }
 
   .hero {
@@ -909,13 +1009,13 @@ p.body-copy:last-child {
 
   .footer-inner {
     grid-template-columns: 1fr;
-    padding: 0 32px 2rem;
+    padding: 0 24px 1rem;
   }
 
   .connect-block {
     grid-column: 1;
     grid-template-columns: 1fr;
-    padding: 3rem 0 2rem;
+    padding: 3rem 0 3.5rem;
   }
 
   .connect-header {
@@ -959,6 +1059,8 @@ p.body-copy:last-child {
 
   .footer-tagline {
     grid-column: 1;
+    font-size: 24px;
+    line-height: 120%
   }
 
   .footer-row-right {
@@ -996,6 +1098,7 @@ p.body-copy:last-child {
 
   .site-footer {
     min-height: auto;
+    padding: 1rem 0 0;
   }
 
 }
