@@ -500,7 +500,7 @@ p.body-copy:last-child {
   margin-top: 0rem;
   overflow: hidden;
   scroll-margin-top: calc(var(--header-height) + 1rem + 1.5rem);
-  transition: --footer-bg 0.5s ease 1s, --footer-fg 0.5s ease 1s;
+  transition: --footer-bg 0.5s ease 0s, --footer-fg 0.5s ease 0s;
 }
 
 .site-footer.footer-in-view {
