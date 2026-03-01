@@ -15,6 +15,18 @@
   --grid-cols: 6;
 }
 
+/* So footer --footer-bg/--footer-fg interpolate during transition (not snap) */
+@property --footer-bg {
+  syntax: "<color>";
+  initial-value: #EEE8CE;
+  inherits: true;
+}
+@property --footer-fg {
+  syntax: "<color>";
+  initial-value: #1D3468;
+  inherits: true;
+}
+
 *,
 *::before,
 *::after {
@@ -475,16 +487,73 @@ p.body-copy:last-child {
 }
 
 /* ----- Footer: full viewport width, 500px height on large desktop ----- */
+/* One transition drives all: --footer-bg and --footer-fg (0.5s ease 1s delay). Children use the variables and have no transition. */
 .site-footer {
+  --footer-bg: var(--color-cream);
+  --footer-fg: var(--color-navy);
   position: relative;
   width: 100%;
   min-height: 500px;
-  background: var(--color-dark);
-  color: var(--color-cream);
+  background: var(--footer-bg);
+  color: var(--footer-fg);
   padding: 3rem 0 0;
   margin-top: 0rem;
   overflow: hidden;
   scroll-margin-top: calc(var(--header-height) + 1rem + 1.5rem);
+  transition: --footer-bg 0.5s ease 1s, --footer-fg 0.5s ease 1s;
+}
+
+.site-footer.footer-in-view {
+  --footer-bg: var(--color-dark);
+  --footer-fg: var(--color-cream);
+}
+
+/* Footer content uses --footer-fg; no per-element transition so everything stays in sync. footer-bg-logo unchanged. */
+.site-footer .connect-hairline {
+  background: var(--footer-fg);
+}
+.site-footer .connect-seal svg path,
+.site-footer .connect-arrow svg path {
+  fill: var(--footer-fg);
+}
+.site-footer .connect-inquiries-head,
+.site-footer .connect-email-link,
+.site-footer .connect-newsletter-head,
+.site-footer .connect-newsletter-form input,
+.site-footer .connect-newsletter-form input::placeholder,
+.site-footer .connect-submit-btn,
+.site-footer .connect-thank-you-heading,
+.site-footer .connect-thank-you .body-copy,
+.site-footer .connect-thank-you-link,
+.site-footer .connect-footer-rule,
+.site-footer .footer-tagline,
+.site-footer .footer-link,
+.site-footer .footer-copy {
+  color: var(--footer-fg);
+}
+.site-footer .connect-newsletter-form input {
+  border-bottom-color: color-mix(in srgb, var(--footer-fg) 35%, transparent);
+}
+.site-footer .connect-newsletter-form input:focus {
+  border-bottom-color: var(--footer-fg);
+}
+/* Submit arrow: dark on cream (default), cream on navy (in-view); same timing so it stays in sync */
+.site-footer .connect-submit-arrow {
+  filter: brightness(0);
+  transition: filter 0.5s ease 1s;
+}
+.site-footer.footer-in-view .connect-submit-arrow {
+  filter: none;
+}
+.site-footer .connect-email-link:hover {
+  color: var(--footer-fg);
+  opacity: 0.8;
+}
+.site-footer.footer-in-view .connect-email-link:hover {
+  opacity: 0.5;
+}
+.site-footer .connect-footer-rule {
+  border-top-color: var(--footer-fg);
 }
 
 /* Background logo: below the hairline, 24px gap; centered */
@@ -514,7 +583,7 @@ p.body-copy:last-child {
   margin: 0 auto;
   padding: 0 32px 2rem;
   display: grid;
-  grid-template-columns: calc(var(--page-width) / 6 + 280px) 1fr;
+  grid-template-columns: calc(100% / 6 + 64px / 6 + 280px) 1fr;
   gap: 0 1.5rem;
 }
 
@@ -523,7 +592,7 @@ p.body-copy:last-child {
 .connect-block {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: calc(var(--page-width) / 6 + 280px) 1fr;
+  grid-template-columns: calc(100% / 6 + 64px / 6 + 280px) 1fr;
   gap: 0 1.5rem;
   align-items: start;
   padding: 2rem 0 4rem;
@@ -532,7 +601,7 @@ p.body-copy:last-child {
 .connect-header {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: calc(var(--page-width) / 6 + 280px) 1fr;
+  grid-template-columns: calc(100% / 6 + 64px / 6 + 280px) 1fr;
   gap: 0 1.5rem;
   align-items: center;
 }
@@ -777,7 +846,7 @@ p.body-copy:last-child {
 .footer-row {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: calc(var(--page-width) / 6 + 280px) 1fr;
+  grid-template-columns: calc(100% / 6 + 64px / 6 + 280px) 1fr;
   gap: 0 1.5rem;
   align-items: last baseline;
 }
@@ -978,7 +1047,7 @@ p.body-copy:last-child {
   .hero-headline {
     font-size: 32px;
     line-height: 1.2;
-    margin: 0 0 0;
+    margin: 0 0 0.5em;
   }
 
   .hero-copy p,
@@ -1072,6 +1141,10 @@ p.body-copy:last-child {
 
   .footer-links {
     justify-content: flex-start;
+  }
+
+  .footer-link {
+    font-size: 14px
   }
 
   .services,
