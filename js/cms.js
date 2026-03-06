@@ -13,15 +13,26 @@
   var body = document.body;
   var connectionUrl = (body && body.getAttribute('data-sheet-best-url')) || SHEET_BEST_URL;
 
+  function showCmsContent() {
+    if (body) {
+      body.classList.remove('cms-loading');
+      body.classList.add('cms-ready');
+    }
+  }
+
   if (!connectionUrl) {
     console.info('CMS: No sheet.best URL configured. Using static content. Add data-sheet-best-url to <body> or set SHEET_BEST_URL in js/cms.js.');
+    showCmsContent();
     return;
   }
 
   fetch(connectionUrl)
     .then(function (res) { return res.json(); })
     .then(function (rows) {
-      if (!Array.isArray(rows) || rows.length === 0) return;
+      if (!Array.isArray(rows) || rows.length === 0) {
+        showCmsContent();
+        return;
+      }
       var map = {};
       rows.forEach(function (row) {
         var k = row.key || row.Key;
@@ -29,9 +40,11 @@
         if (k) map[String(k).trim()] = v;
       });
       applyContent(map);
+      showCmsContent();
     })
     .catch(function (err) {
       console.warn('CMS: Could not load content from sheet.', err);
+      showCmsContent();
     });
 
   function applyContent(map) {
