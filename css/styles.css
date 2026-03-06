@@ -46,6 +46,41 @@ body {
   background-color: var(--color-cream);
 }
 
+/* CMS: hide sheet-driven content until loaded, then fade in with staggered delay (avoids flash of fallback text) */
+[data-cms],
+[data-cms-html],
+[data-cms-list],
+[data-cms-href] {
+  transition: opacity 0.25s ease;
+}
+body.cms-loading [data-cms],
+body.cms-loading [data-cms-html],
+body.cms-loading [data-cms-list],
+body.cms-loading [data-cms-href] {
+  opacity: 0;
+}
+body.cms-ready [data-cms],
+body.cms-ready [data-cms-html],
+body.cms-ready [data-cms-list],
+body.cms-ready [data-cms-href] {
+  opacity: 1;
+}
+/* Stagger: headline → about copy → services → experience → connect/footer (each 0.1s apart) */
+body.cms-ready #about .hero-headline,
+body.cms-ready #about .hero-headline[data-cms] { transition-delay: 0s; }
+body.cms-ready #about .hero-copy [data-cms],
+body.cms-ready #about .hero-copy [data-cms-html] { transition-delay: 0.1s; }
+body.cms-ready #services [data-cms],
+body.cms-ready #services [data-cms-html] { transition-delay: 0.15s; }
+body.cms-ready #experience [data-cms],
+body.cms-ready #experience [data-cms-html],
+body.cms-ready #experience [data-cms-list] { transition-delay: 0.2s; }
+body.cms-ready #connect [data-cms],
+body.cms-ready #connect [data-cms-html],
+body.cms-ready #connect [data-cms-href],
+body.cms-ready .site-footer [data-cms],
+body.cms-ready .site-footer [data-cms-href] { transition-delay: 0.25s; }
+
 .page-wrapper {
   max-width: var(--page-width);
   margin: 0 auto;
