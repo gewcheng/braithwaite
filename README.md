@@ -1,6 +1,6 @@
 # Braithwaite — One-Page Website
 
-A one-page site for Braithwaite (cultural relations consultancy), built from your Figma design. It includes a contact form that can send submissions to a Google Sheet.
+A one-page site for Braithwaite (cultural relations consultancy).
 
 ---
 
