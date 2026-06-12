@@ -64,11 +64,14 @@
       }
     });
 
-    // data-cms-href="key" → set element href (for links)
+    // data-cms-href="key" → set element href; value = URL or "Label|URL" (URL after pipe)
     document.querySelectorAll('[data-cms-href]').forEach(function (el) {
       var key = el.getAttribute('data-cms-href');
       var val = get(key);
-      if (val) el.href = val;
+      if (!val) return;
+      var parts = val.split('|').map(function (p) { return p.trim(); });
+      var url = parts[1] || parts[0];
+      if (url) el.href = url;
     });
 
     // data-cms-html="key" → innerHTML (use only for trusted sheet content)
