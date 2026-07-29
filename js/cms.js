@@ -1,17 +1,21 @@
 /**
- * Simple CMS via sheet.best: fetches copy from a Google Sheet and injects it
+ * Simple CMS via a Google Sheet's CSV export: fetches copy and injects it
  * into elements with data-cms, data-cms-html, or data-cms-list attributes.
  *
- * Set your sheet.best connection URL in the config below (or via data attribute on body).
+ * Setup (one-time, in Google Sheets):
+ *   Share → General access → "Anyone with the link" (Viewer).
+ *   Then use this URL as data-cms-sheet-url on <body> (or CMS_SHEET_URL below):
+ *   https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/export?format=csv
+ *
  * Sheet format: first row headers "key" and "value"; each row = one content key.
  * For data-cms-list keys, use "Label|URL" per line in the value cell.
  */
 (function () {
-  // Replace with your sheet.best Connection URL after connecting your Google Sheet
-  var SHEET_BEST_URL = '';
+  // Replace with your Google Sheets "publish to web" CSV URL after publishing
+  var CMS_SHEET_URL = '';
 
   var body = document.body;
-  var connectionUrl = (body && body.getAttribute('data-sheet-best-url')) || SHEET_BEST_URL;
+  var sheetUrl = (body && body.getAttribute('data-cms-sheet-url')) || CMS_SHEET_URL;
 
   function showCmsContent() {
     if (body) {
@@ -20,25 +24,36 @@
     }
   }
 
-  if (!connectionUrl) {
-    console.info('CMS: No sheet.best URL configured. Using static content. Add data-sheet-best-url to <body> or set SHEET_BEST_URL in js/cms.js.');
+  if (!sheetUrl) {
+    console.info('CMS: No sheet URL configured. Using static content. Add data-cms-sheet-url to <body> or set CMS_SHEET_URL in js/cms.js.');
     showCmsContent();
     return;
   }
 
-  fetch(connectionUrl)
-    .then(function (res) { return res.json(); })
-    .then(function (rows) {
-      if (!Array.isArray(rows) || rows.length === 0) {
+  fetch(sheetUrl)
+    .then(function (res) {
+      if (!res.ok) throw new Error('CMS sheet request failed: ' + res.status);
+      return res.text();
+    })
+    .then(function (csvText) {
+      var rows = parseCsv(csvText);
+      if (!rows.length) {
+        showCmsContent();
+        return;
+      }
+      var header = rows[0].map(function (h) { return String(h).trim().toLowerCase(); });
+      var keyIdx = header.indexOf('key');
+      var valIdx = header.indexOf('value');
+      if (keyIdx === -1 || valIdx === -1) {
         showCmsContent();
         return;
       }
       var map = {};
-      rows.forEach(function (row) {
-        var k = row.key || row.Key;
-        var v = row.value != null ? row.value : row.Value;
-        if (k) map[String(k).trim()] = v;
-      });
+      for (var i = 1; i < rows.length; i++) {
+        var row = rows[i];
+        var k = row[keyIdx];
+        if (k) map[String(k).trim()] = row[valIdx];
+      }
       applyContent(map);
       showCmsContent();
     })
@@ -46,6 +61,48 @@
       console.warn('CMS: Could not load content from sheet.', err);
       showCmsContent();
     });
+
+  // Minimal RFC 4180 CSV parser: handles quoted fields, embedded commas,
+  // embedded newlines, and escaped ("") quotes.
+  function parseCsv(text) {
+    var rows = [];
+    var row = [];
+    var field = '';
+    var inQuotes = false;
+    for (var i = 0; i < text.length; i++) {
+      var c = text[i];
+      if (inQuotes) {
+        if (c === '"') {
+          if (text[i + 1] === '"') {
+            field += '"';
+            i++;
+          } else {
+            inQuotes = false;
+          }
+        } else {
+          field += c;
+        }
+      } else if (c === '"') {
+        inQuotes = true;
+      } else if (c === ',') {
+        row.push(field);
+        field = '';
+      } else if (c === '\n' || c === '\r') {
+        if (c === '\r' && text[i + 1] === '\n') i++;
+        row.push(field);
+        field = '';
+        if (row.length > 1 || row[0] !== '') rows.push(row);
+        row = [];
+      } else {
+        field += c;
+      }
+    }
+    if (field !== '' || row.length) {
+      row.push(field);
+      rows.push(row);
+    }
+    return rows;
+  }
 
   function applyContent(map) {
     function get(key) {
